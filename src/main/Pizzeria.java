@@ -4,19 +4,28 @@
  */
 public abstract class Pizzeria {
 	
-    Pizza pizza;
+	FabriqueDePizzas fabrique ;
 	
-    /**
-     * @param type
-     * @return a Pizza object according to the type
-     */
-    public Pizza commanderPizza(String type) {
-    
-    pizza.preparer();
-    pizza.cuire();
-    pizza.couper();
-    pizza.emballer();
+	public Pizza commanderPizza(String string) {
+		
+		Pizza instance = fabrique.creerPizza(string);
 
-    return pizza;
-    }
+		instance.preparer();
+		instance.cuire();
+		instance.couper();
+		instance.emballer();
+
+		return instance;
+	}
+		
+	protected Pizzeria creer(String name) {
+		Pizzeria Pizzeria = null;
+		if (name.equals("brest")) {
+			Pizzeria = new PizzeriaBrest();
+		} else if (name.equals("strasbourg")) {
+			Pizzeria = new PizzeriaStrasbourg();
+		} 
+		return Pizzeria;
+	}
+	
 }
