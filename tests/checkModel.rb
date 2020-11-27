@@ -34,30 +34,30 @@ class TestGeneratedModel < Minitest::Test
   end
 
   def test_generated_model_is_plantuml
-    assert_equal(true, File.readlines(MODEL_NAME).grep(/@startuml/).any?)
-    assert_equal(true, File.readlines(MODEL_NAME).grep(/@enduml/).any?)
+    assert_equal(true, File.readlines(MODEL_NAME, :encoding => 'utf-8').grep(/@startuml/).any?)
+    assert_equal(true, File.readlines(MODEL_NAME, :encoding => 'utf-8').grep(/@enduml/).any?)
   end
 
   #------------ Specific tests about expected content
   
   def test_class_Pizza_is_abstract
-    assert_equal(true, File.readlines(MODEL_NAME).grep(/abstract class Pizza\s*/).any?)
+    assert_equal(true, File.readlines(MODEL_NAME, :encoding => 'utf-8').grep(/abstract class Pizza\s*/).any?)
   end
 
   def test_class_Pizzeria_is_abstract
-    assert_equal(true, File.readlines(MODEL_NAME).grep(/abstract class Pizzeria\s*/).any?)
+    assert_equal(true, File.readlines(MODEL_NAME, :encoding => 'utf-8').grep(/abstract class Pizzeria\s*/).any?)
   end
 
   def test_class_Pizzeria_has_Factory
-    assert_equal(true, File.readlines(MODEL_NAME).grep(/Pizzeria\s+[o|"<>"|-]-+> "[\d|.]" .*Factory.*/).any?)
+    assert_equal(true, File.readlines(MODEL_NAME, :encoding => 'utf-8').grep(/Pizzeria\s+[o|"<>"|-]-+> "[\d|.]" .*Factory.*/).any?)
   end
 
   def test_Pizzeria_has_concrete_implementation
-    assert_equal(true, File.readlines(MODEL_NAME).grep(/Pizzeria\s+<\|\-\-/).any?)
+    assert_equal(true, File.readlines(MODEL_NAME, :encoding => 'utf-8').grep(/Pizzeria\s+<\|\-\-/).any?)
   end
 
   def test_Pizza_has_concrete_implementation
-    assert_equal(true, File.readlines(MODEL_NAME).grep(/Pizza\s+<\|\-\-/).any?)
+    assert_equal(true, File.readlines(MODEL_NAME, :encoding => 'utf-8').grep(/Pizza\s+<\|\-\-/).any?)
   end
 
 end
