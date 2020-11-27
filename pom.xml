@@ -34,7 +34,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <encoding>UTF-8</encoding>
+                    <encoding>ISO-8859-1</encoding>
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
@@ -60,7 +60,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>            
         </plugins>
     </build>
 </project>
