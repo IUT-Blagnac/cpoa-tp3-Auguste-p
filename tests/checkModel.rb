@@ -7,7 +7,8 @@
 # -------------------
 
 require "minitest/autorun"
-MODEL_NAME = ARGV[0] ? ARGV[0] : "TP1.plantuml"
+
+MODEL_NAME = ARGV[0] ? ARGV[0] : "TP3.plantuml"
 
 module MiniTest
   class Unit
@@ -22,9 +23,9 @@ module MiniTest
     end
   end
 end
-MiniTest::Unit.after_tests { p @_assertions }
+Minitest.after_run { p @_assertions }
 
-class TestGeneratedModel < MiniTest::Unit::TestCase
+class TestGeneratedModel < Minitest::Test
   
   #------------ General tests about plantUML
   
@@ -33,26 +34,30 @@ class TestGeneratedModel < MiniTest::Unit::TestCase
   end
 
   def test_generated_model_is_plantuml
-    assert_equal(true, File.readlines(MODEL_NAME).grep(/@startuml/).any?)
-    assert_equal(true, File.readlines(MODEL_NAME).grep(/@enduml/).any?)
+    assert_equal(true, File.readlines(MODEL_NAME, :encoding => 'utf-8').grep(/@startuml/).any?)
+    assert_equal(true, File.readlines(MODEL_NAME, :encoding => 'utf-8').grep(/@enduml/).any?)
   end
 
   #------------ Specific tests about expected content
   
-  def test_class_Character_is_abstract
-    assert_equal(true, File.readlines(MODEL_NAME).grep(/abstract class Character\s*/).any?)
+  def test_class_Pizza_is_abstract
+    assert_equal(true, File.readlines(MODEL_NAME, :encoding => 'utf-8').grep(/abstract class Pizza\s*/).any?)
   end
 
-  def test_class_Character_has_BehaviorWeapon
-    assert_contains(/Character\s+[o|"<>"|-]-+> "[\d|.]" BehaviorWeapon/, File.readlines(MODEL_NAME).join)
+  def test_class_Pizzeria_is_abstract
+    assert_equal(true, File.readlines(MODEL_NAME, :encoding => 'utf-8').grep(/abstract class Pizzeria\s*/).any?)
   end
 
-  def test_BehaviorWeapon_is_an_Interface
-    assert_equal(true, File.readlines(MODEL_NAME).grep(/interface\s+BehaviorWeapon/).any?)
+  def test_class_Pizzeria_has_Factory
+    assert_equal(true, File.readlines(MODEL_NAME, :encoding => 'utf-8').grep(/Pizzeria\s+[o|"<>"|-]-+> "[\d|.]" .*FabriqueDePizzas.*/).any?)
   end
 
-  def test_BehaviorWeapon_Interface_has_concrete_implementation
-    assert_equal(true, File.readlines(MODEL_NAME).grep(/BehaviorWeapon\s+<\|\.\./).any?)
+  def test_Pizzeria_has_concrete_implementation
+    assert_equal(true, File.readlines(MODEL_NAME, :encoding => 'utf-8').grep(/Pizzeria\s+<\|\-\-/).any?)
+  end
+
+  def test_Pizza_has_concrete_implementation
+    assert_equal(true, File.readlines(MODEL_NAME, :encoding => 'utf-8').grep(/Pizza\s+<\|\-\-/).any?)
   end
 
 end
